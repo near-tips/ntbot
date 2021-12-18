@@ -29,11 +29,7 @@ app.use(methodOverride());
 app.use(helmet());
 
 // enable CORS - Cross Origin Resource Sharing
-app.use(cors({
-    origin: true, // allow to server to accept request from different origin
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    credentials: true
-}));
+app.use(cors());
 
 // mount api v1 routes
 app.use('/v1', routes);
