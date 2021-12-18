@@ -30,7 +30,7 @@ app.use(helmet());
 
 // enable CORS - Cross Origin Resource Sharing
 app.use(cors({
-    origin: 'https://stackoverflow.com', // allow to server to accept request from different origin
+    origin: ['https://stackoverflow.com'], // allow to server to accept request from different origin
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
 }));
 
