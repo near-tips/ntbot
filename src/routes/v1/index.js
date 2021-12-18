@@ -29,7 +29,7 @@ router.post('/notify', async (req, res) => {
             site: 'stackoverflow',
             access_token: accessToken,
             key: '6xURMARqiKBjGkKi0BQJkA((',
-            body: `Hi, ${usernames} your post was granted with tips, check it out on app.next-tips.com`
+            body: `Hi, ${usernames} your post was granted with tips, check it out on https://app.near-tips.com`
         }), {
             headers: {
                 'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
