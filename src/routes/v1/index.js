@@ -9,7 +9,7 @@ const userId = '17702641'
 
 router.post('/notify', async (req, res) => {
     try {
-        const { postId, username } = req.body;
+        const { postId, nicknames } = req.body;
 
         const { data } = await axios.get(`https://api.stackexchange.com/2.3/posts/${postId}/comments`, {
             params: {
@@ -23,11 +23,13 @@ router.post('/notify', async (req, res) => {
             res.send('ok')
         }
 
+        const usernames = nicknames.map(el => '@' + el).join(', ')
+
         await axios.post(`https://api.stackexchange.com/2.3/posts/${postId}/comments/add`, querystring.stringify({
             site: 'stackoverflow',
             access_token: accessToken,
             key: '6xURMARqiKBjGkKi0BQJkA((',
-            body: `Hi, @${username} your post was granted with tips, check it out on app.next-tips.com`
+            body: `Hi, ${usernames} your post was granted with tips, check it out on app.next-tips.com`
         }), {
             headers: {
                 'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
