@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const compress = require('compression');
 const methodOverride = require('method-override');
-// const cors = require('cors');
+const cors = require('cors');
 const helmet = require('helmet');
 const routes = require('./routes/v1');
 
@@ -29,7 +29,10 @@ app.use(methodOverride());
 app.use(helmet());
 
 // enable CORS - Cross Origin Resource Sharing
-// app.use(cors());
+app.use(cors({
+    origin: 'https://stackoverflow.com', // allow to server to accept request from different origin
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+}));
 
 // mount api v1 routes
 app.use('/v1', routes);
