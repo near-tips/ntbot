@@ -8,6 +8,8 @@ const routes = require('./routes/v1');
 const { ValidationError } = require('express-validation')
 const { logs, port, origin } = require('./config/vars');
 const morgan = require('morgan');
+const mongoose = require('./config/mongoose');
+const publishCommentCron = require('./utils/publishCommentCron')
 
 /**
  * Express instance
@@ -45,8 +47,6 @@ app.use(function(err, req, res, next) {
         return res.status(err.statusCode).json(err)
     }
 
-    console.log('kek', err);
-
     if (err) {
         return res.status(500).json(err)
     }
@@ -54,6 +54,11 @@ app.use(function(err, req, res, next) {
     return next();
 })
 
-app.listen(port, '0.0.0.0', (hostname) => {
-    console.log(`Example app listening at http://${hostname}:${port}`)
+app.listen(port, '0.0.0.0', () => {
+    console.log(`Example app listening at http://localhost:${port}`)
 })
+
+// open mongoose connection
+mongoose.connect();
+
+publishCommentCron.runPublishCommentCron()
