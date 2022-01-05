@@ -5,14 +5,17 @@ const methodOverride = require('method-override');
 const cors = require('cors');
 const helmet = require('helmet');
 const routes = require('./routes/v1');
-
-const port = 8082
+const { ValidationError } = require('express-validation')
+const { logs, port, origin } = require('./config/vars');
+const morgan = require('morgan');
 
 /**
  * Express instance
  * @public
  */
 const app = express();
+
+app.use(morgan(logs));
 
 // parse body params and attache them to req.body
 app.use(bodyParser.json());
@@ -30,13 +33,27 @@ app.use(helmet());
 
 // enable CORS - Cross Origin Resource Sharing
 app.use(cors({
-    origin: ['https://stackoverflow.com'], // allow to server to accept request from different origin
+    origin, // allow to server to accept request from different origin
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
 }));
 
 // mount api v1 routes
 app.use('/v1', routes);
 
+app.use(function(err, req, res, next) {
+    if (err instanceof ValidationError) {
+        return res.status(err.statusCode).json(err)
+    }
+
+    console.log('kek', err);
+
+    if (err) {
+        return res.status(500).json(err)
+    }
+
+    return next();
+})
+
 app.listen(port, '0.0.0.0', (hostname) => {
-    console.log(`Example app listening at http://localhost:${port}`)
+    console.log(`Example app listening at http://${hostname}:${port}`)
 })
