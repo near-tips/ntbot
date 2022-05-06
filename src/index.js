@@ -9,7 +9,7 @@ const { ValidationError } = require('express-validation')
 const { logs, port, origin } = require('./config/vars');
 const morgan = require('morgan');
 const mongoose = require('./config/mongoose');
-const publishCommentCron = require('./utils/publishCommentCron')
+const publishCommentCron = require('./utils/publishCommentCron');
 
 /**
  * Express instance

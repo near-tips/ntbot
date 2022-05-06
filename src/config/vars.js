@@ -17,4 +17,6 @@ module.exports = {
         uri: process.env.NODE_ENV === 'test' ? process.env.MONGO_URI_TESTS : process.env.MONGO_URI,
     },
     logs: process.env.NODE_ENV === 'production' ? 'combined' : 'dev',
+    nearContractAddress: process.env.NEAR_CONTRACT_ADDRESS,
+    nearAccountId: process.env.NEAR_ACCOUNT_ID,
 };
