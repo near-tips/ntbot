@@ -11,7 +11,7 @@ const runPublishCommentCron = () => {
                 await createComment(postId, nicknames)
                 await StackComment.deleteOne({ _id })
             } catch (e) {
-                console.log('Cron error \n', '\n' + e)
+                console.log('Cron error \n', '\n' + e + '\nend')
             }
         }
     });
