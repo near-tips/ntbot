@@ -37,6 +37,7 @@ const createComment = async (postId, nicknames) => {
         console.log('done', reason);
     } catch (e) {
         console.log('Create comment error: ', e + '\nend')
+        console.log('Create comment message: ', e.message)
         throw new Error(e)
     }
 

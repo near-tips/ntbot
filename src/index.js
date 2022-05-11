@@ -59,6 +59,4 @@ app.listen(port, '0.0.0.0', () => {
 })
 
 // open mongoose connection
-mongoose.connect();
-
-publishCommentCron.runPublishCommentCron()
+mongoose.connect().then(() => publishCommentCron.runPublishCommentCron());
