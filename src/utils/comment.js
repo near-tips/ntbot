@@ -14,11 +14,14 @@ const createComment = async (postId, nicknames) => {
             }
         })
 
+        console.log('data', data);
+
         if (data.items.some(({ owner }) => owner.user_id.toString() === userId)) {
             return;
         }
 
         const usernames = nicknames.map(el => '@' + el).join(', ')
+        console.log('usernames', usernames);
 
         await axios.post(`https://api.stackexchange.com/2.3/posts/${postId}/comments/add`, querystring.stringify({
             site: 'stackoverflow',
@@ -30,6 +33,8 @@ const createComment = async (postId, nicknames) => {
                 'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
             }
         })
+
+        console.log('done');
     } catch (e) {
         console.log('Create comment error: ', e + '\nend')
         throw new Error(e)
