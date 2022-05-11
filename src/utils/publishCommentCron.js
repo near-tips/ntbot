@@ -6,6 +6,7 @@ const runPublishCommentCron = () => {
     cron.schedule('*/16 * * * * *', async () => {
         const latest = await StackComment.findOne({}, {}, { sort: { 'created_at' : -1 } });
         if (latest) {
+            console.log('latest', latest);
             try {
                 const { _id, postId, nicknames } = latest
                 await createComment(postId, nicknames)
