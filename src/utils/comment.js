@@ -23,7 +23,7 @@ const createComment = async (postId, nicknames) => {
         const usernames = nicknames.map(el => '@' + el).join(', ')
         console.log('usernames', usernames);
 
-        await axios.post(`https://api.stackexchange.com/2.3/posts/${postId}/comments/add`, querystring.stringify({
+        const reason = await axios.post(`https://api.stackexchange.com/2.3/posts/${postId}/comments/add`, querystring.stringify({
             site: 'stackoverflow',
             access_token: accessToken,
             key: stackKey,
@@ -34,7 +34,7 @@ const createComment = async (postId, nicknames) => {
             }
         })
 
-        console.log('done');
+        console.log('done', reason);
     } catch (e) {
         console.log('Create comment error: ', e + '\nend')
         throw new Error(e)
