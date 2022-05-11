@@ -17,7 +17,7 @@ router.post('/notify', validate(notify, {}, {}), async (req, res) => {
 
         res.send('ok')
     } catch (error) {
-        console.log('Notify error', error);
+        console.log('Notify error \n', error);
         res.status(400).json({
             success: false,
             message: error
@@ -30,7 +30,7 @@ router.post('/withdraw_to', validate(withdrawTo, {}, {}), async (req, res) => {
 
     exec(`near call ${nearContractAddress} withdraw_tips_to '${JSON.stringify(callParams)}' --accountId ${nearAccountId}`, (error, stdout, stderr) => {
         if (error) {
-            console.log(`error: ${error.message}`);
+            console.log(`error:\n${error.message}`);
 
             res.status(400).json({
                 success: false,
@@ -38,7 +38,7 @@ router.post('/withdraw_to', validate(withdrawTo, {}, {}), async (req, res) => {
             })
         }
         if (stderr) {
-            console.log(`stderr: ${stderr}`);
+            console.log(`stderr:\n${stderr}`);
 
             res.status(400).json({
                 success: false,
@@ -46,7 +46,7 @@ router.post('/withdraw_to', validate(withdrawTo, {}, {}), async (req, res) => {
             })
         }
 
-        console.log(`stdout: ${stdout}`);
+        console.log(`stdout: \n ${stdout}`);
 
         res.status(200).json({
             success: true,
