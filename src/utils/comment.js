@@ -20,10 +20,10 @@ const createComment = async (postId, nicknames) => {
             return;
         }
 
-        const usernames = nicknames.map(el => '@' + el).join(', ')
+        const usernames = nicknames.map((el, index) => index > 0 ? el : '@' + el).join(', ')
         console.log('usernames', usernames);
 
-        const reason = await axios.post(`https://api.stackexchange.com/2.3/posts/${postId}/comments/add`, querystring.stringify({
+        await axios.post(`https://api.stackexchange.com/2.3/posts/${postId}/comments/add`, querystring.stringify({
             site: 'stackoverflow',
             access_token: accessToken,
             key: stackKey,
@@ -32,12 +32,9 @@ const createComment = async (postId, nicknames) => {
             headers: {
                 'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
             }
-        }).catch((e) => console.log('hui', e))
-
-        console.log('done', reason);
+        }).catch((e) => console.log('Error message', e.response.data.error_message))
     } catch (e) {
         console.log('Create comment error: ', e + '\nend')
-        console.log('Create comment message: ', e.message)
         throw new Error(e)
     }
 
