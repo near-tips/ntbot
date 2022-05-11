@@ -32,7 +32,7 @@ const createComment = async (postId, nicknames) => {
             headers: {
                 'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
             }
-        })
+        }).catch((e) => console.log('hui', e))
 
         console.log('done', reason);
     } catch (e) {
