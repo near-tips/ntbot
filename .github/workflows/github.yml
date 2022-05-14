@@ -10,10 +10,9 @@ jobs:
       - name: Deploy to Digital Ocean droplet via SSH action
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ Secrets.HOST }}
-          username: ${{ Secrets.USERNAME }}
-          key: ${{ Secrets.KEY }}
-          password: ${{ Secrets.PASSWORD }}
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
           port: 22
           script: |
             # Go to bot repository
