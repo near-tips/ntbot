@@ -13,7 +13,6 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          port: 22
           script: |
             # Go to bot repository
             cd ./neartips/ntbot/
