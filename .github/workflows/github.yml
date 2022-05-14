@@ -1,5 +1,8 @@
 name: deployment
-on: [push]
+on:
+  push:
+    branches:
+      - master
 jobs:
 
   deploy:
@@ -18,5 +21,7 @@ jobs:
             cd ./neartips/ntbot/
             # Pull changes
             git pull
+            # Install dependencies
+            yarn
             # Forever restart
             forever restartall
