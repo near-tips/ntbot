@@ -17,11 +17,19 @@ router.post('/notify', validate(notify, {}, {}), async (req, res) => {
 
         res.send('ok')
     } catch (error) {
-        console.log('Notify error \n', error);
-        res.status(400).json({
-            success: false,
-            message: error
-        });
+        if (error.response) {
+            console.log('Notify error \n', error.response.data);
+            res.status(error.response.status).json({
+                success: false,
+                message: error.response.data,
+            });
+        } else {
+            console.log('Notify error \n', error);
+            res.status(400).json({
+                success: false,
+                message: error,
+            });
+        }
     }
 });
 
