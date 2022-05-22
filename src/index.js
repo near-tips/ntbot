@@ -10,6 +10,7 @@ const { logs, port, origin } = require('./config/vars');
 const morgan = require('morgan');
 const mongoose = require('./config/mongoose');
 const publishCommentCron = require('./utils/publishCommentCron');
+const { handleError } = require("./utils/handleError");
 
 /**
  * Express instance
@@ -42,12 +43,15 @@ app.use(cors({
 // mount api v1 routes
 app.use('/v1', routes);
 
-app.use(function(err, req, res, next) {
+app.use(async function (err, req, res, next) {
     if (err instanceof ValidationError) {
+        await handleError(err, 'Validation')
+
         return res.status(err.statusCode).json(err)
     }
 
     if (err) {
+        await handleError(err.details.body, 'Validation')
         return res.status(500).json(err)
     }
 
@@ -55,7 +59,7 @@ app.use(function(err, req, res, next) {
 })
 
 app.listen(port, '0.0.0.0', () => {
-    console.log(`Example app listening at http://localhost:${port}`)
+    console.log(`Example app listening at http://localhost:${ port }`)
 })
 
 // open mongoose connection

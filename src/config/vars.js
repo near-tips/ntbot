@@ -10,6 +10,7 @@ module.exports = {
     env: process.env.NODE_ENV,
     port: process.env.PORT,
     stackKey: process.env.STACK_KEY,
+    errorBotServer: process.env.ERROR_BOT_SERVER,
     accessToken: process.env.ACCESS_TOKEN,
     userId: process.env.USER_ID,
     origin: process.env.ORIGIN,
