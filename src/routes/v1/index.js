@@ -16,8 +16,8 @@ router.post('/notify', validate(notify, {}, {}), async (req, res) => {
 
         res.send('ok')
     } catch (error) {
-        let status = error.response ? error.response.status : 400;
-        let message = error.response ? error.response.data : error;
+        const status = error.response ? error.response.status : 400;
+        const message = error.response ? error.response.data : error;
         console.log('Notify error \n', message);
         await handleError(message, 'Notify')
         res.status(status).json({
